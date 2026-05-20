@@ -15,12 +15,11 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install yfinance "pandas-ta==0.3.14b0" anthropic pytz requests pandas numpy
-
+          pip install yfinance anthropic pytz requests pandas numpy ta-lib-python || pip install yfinance anthropic pytz requests pandas numpy ta
       - name: Unzip agent files
         run: |
           unzip forex_agent.zip
