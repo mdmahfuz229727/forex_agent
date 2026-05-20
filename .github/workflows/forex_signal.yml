@@ -2,9 +2,9 @@ name: Forex Signal Bot
 
 on:
   schedule:
-    - cron: '0 8 * * 1-5'   # 2 PM BST (London open)
-    - cron: '0 13 * * 1-5'  # 7 PM BST (NY open)
-  workflow_dispatch:          # Manual run button
+    - cron: '0 8 * * 1-5'
+    - cron: '0 13 * * 1-5'
+  workflow_dispatch:
 
 jobs:
   analyze:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install yfinance pandas-ta anthropic pytz requests
+          pip install yfinance "pandas-ta==0.3.14b0" anthropic pytz requests pandas numpy
 
       - name: Unzip agent files
         run: |
