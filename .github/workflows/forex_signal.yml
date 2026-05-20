@@ -1,0 +1,34 @@
+name: Forex Signal Bot
+
+on:
+  schedule:
+    - cron: '0 8 * * 1-5'   # 2 PM BST (London open)
+    - cron: '0 13 * * 1-5'  # 7 PM BST (NY open)
+  workflow_dispatch:          # Manual run button
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install yfinance pandas-ta anthropic pytz requests
+
+      - name: Unzip agent files
+        run: |
+          unzip forex_agent.zip
+
+      - name: Run Forex Agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python run_agent.py
