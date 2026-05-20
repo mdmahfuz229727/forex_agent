@@ -22,8 +22,7 @@ jobs:
           pip install yfinance anthropic pytz requests pandas numpy ta-lib-python || pip install yfinance anthropic pytz requests pandas numpy ta
       - name: Unzip agent files
         run: |
-          unzip forex_agent.zip
-
+         unzip "forex_agent (1).zip" 
       - name: Run Forex Agent
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
